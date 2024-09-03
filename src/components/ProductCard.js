@@ -10,6 +10,8 @@ export function ProductCard(
     { 
         product, 
         background="slategray",
+        // This is the event handler prop that has been passed to this children component.
+        onPurchase,
         // This '...restProps' unpack all the non-mentioned props.
         ...restProps 
     }) {
@@ -35,7 +37,7 @@ export function ProductCard(
           <li>{product.specification[1]}</li>
           <li>{product.specification[2]}</li>
         </ul>
-        <button>Buy (for ${product.price})</button>
+        <button onClick={() => onPurchase(product)}>Buy (for ${product.price})</button>
       </article>
     );
 }
