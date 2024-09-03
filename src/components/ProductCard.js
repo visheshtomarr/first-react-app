@@ -5,30 +5,37 @@
 //
 // We will export this component to our 'App.js'
 // Props acts similarly as attributes in HTML. 
-export function ProductCard(props) {
+export function ProductCard(
+    // We have destructured our 'Prop' and used a default 'background' prop.
+    { 
+        product, 
+        background="slategray",
+        // This '...restProps' unpack all the non-mentioned props.
+        ...restProps 
+    }) {
 
     return (
       <article style={{
+        background,
         width: "100%",
         border: "1px solid white",
         borderRadius: "8px",
         padding: "16px",
         textAlign: "center"
       }}>
-        <h2>{props.product.title}</h2>
+        <h2>{product.title}</h2>
         <img
-          src={props.product.imageSrc}
-          alt={props.product.title}
-          width="128px"
-          height="128px"
+          src={product.imageSrc}
+          alt={product.title}
+          {...restProps}
         />
         <p>Specification:</p>
         <ul style={{ listStyle: "none", padding: 0 }}>
-          <li>{props.product.specification[0]}</li>
-          <li>{props.product.specification[1]}</li>
-          <li>{props.product.specification[2]}</li>
+          <li>{product.specification[0]}</li>
+          <li>{product.specification[1]}</li>
+          <li>{product.specification[2]}</li>
         </ul>
-        <button>Buy (for ${props.product.price})</button>
+        <button>Buy (for ${product.price})</button>
       </article>
     );
 }

@@ -17,9 +17,23 @@ function App() {
   return (
     <div className="App">
       <ProductList>
-        <ProductCard product={product} />
-        <ProductCard product={product} />
-        <ProductCard product={product} />
+        {/* Here, we are passing concrete values with the 'background' prop. */}
+        <ProductCard 
+        width="96px"
+        height="96px" 
+        product={product} 
+        background="darkolivegreen" />
+
+        <ProductCard
+        width="64px"
+        height="64px"
+        product={product} />
+        
+        <ProductCard 
+        width="128px"
+        height="128px"
+        product={product} 
+        background="peru" />
       </ProductList>
       
     </div>
