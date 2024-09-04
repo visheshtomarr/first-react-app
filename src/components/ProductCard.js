@@ -12,8 +12,6 @@ export function ProductCard(
         background="slategray",
         // This is the event handler prop that has been passed to this children component.
         onPurchase,
-        // This '...restProps' unpack all the non-mentioned props.
-        ...restProps 
     }) {
 
     return (
@@ -29,13 +27,16 @@ export function ProductCard(
         <img
           src={product.imageSrc}
           alt={product.title}
-          {...restProps}
+          width={128}
+          height={128}
         />
         <p>Specification:</p>
         <ul style={{ listStyle: "none", padding: 0 }}>
-          <li>{product.specification[0]}</li>
-          <li>{product.specification[1]}</li>
-          <li>{product.specification[2]}</li>
+          {/* It is not recommended to use 'index' as a key prop when we have some elements inside array which 
+          can be deleted in the future. But, in our case we won't be deleting any product so here we can use 'index'.*/}
+          {product.specification.map((spec, index) => 
+            <li key={index}>{spec}</li>
+          )}
         </ul>
         <button onClick={() => onPurchase(product)}>Buy (for ${product.price})</button>
       </article>
