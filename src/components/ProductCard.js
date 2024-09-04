@@ -1,3 +1,17 @@
+// Styles used in this component.
+const styles = {
+  Container: {
+    width: "100%",
+    border: "1px solid white",
+    borderRadius: "8px",
+    padding: "16px",
+    textAlign: "center"
+  },
+  List: { listStyle: "none", padding: 0 },
+  NotAvailableStatus: { fontSize: "14px", color: "lightsalmon" },
+  AvailableStatus: { fontSize: "14px", color: "lightgreen" }
+};
+
 // Creating a react component for our application.
 // JSX follows the 'Pascal-case' naming convention.
 // JSX -> Syntax extension for JavaScript, is used to write HTML markup inside
@@ -15,14 +29,7 @@ export function ProductCard(
     }) {
 
     return (
-      <article style={{
-        background,
-        width: "100%",
-        border: "1px solid white",
-        borderRadius: "8px",
-        padding: "16px",
-        textAlign: "center"
-      }}>
+      <article style={{ ...styles.Container, background }}>
         <h2>{product.title}</h2>
         <img
           src={product.imageSrc}
@@ -31,7 +38,7 @@ export function ProductCard(
           height={128}
         />
         <p>Specification:</p>
-        <ul style={{ listStyle: "none", padding: 0 }}>
+        <ul style={styles.List}>
           {/* It is not recommended to use 'index' as a key prop when we have some elements inside array which 
           can be deleted in the future. But, in our case we won't be deleting any product so here we can use 'index'.*/}
           {product.specification.map((spec, index) => 
@@ -52,11 +59,11 @@ export function ProductCard(
 // We will display the stock count of different products using this component.
 function Status({ stockCount }) {
   const notAvailableTemplate = (
-    <p style={{ fontSize: "14px", color: "lightsalmon" }}>Not available</p>
+    <p style={styles.NotAvailableStatus}>Not available</p>
   );
 
   const availableTemplate = (
-    <p style={{ fontSize: "14px", color: "lightgreen" }}>{stockCount} items available</p>
+    <p style={styles.AvailableStatus}>{stockCount} items available</p>
   );
 
   return stockCount === 0 ? notAvailableTemplate : availableTemplate ;

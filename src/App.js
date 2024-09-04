@@ -3,6 +3,16 @@ import './App.css';
 import { ProductCard } from './components/ProductCard';
 import { ProductList } from './components/ProductList';
 
+// Styles used in this component.
+const styles = {
+  ListDivider: {
+    borderColor: "slategray",
+  },
+  ListTitle: {
+    margin: "8px 0",
+  }
+};
+
 function App() {
   // Creating a 'products' prop which will be passed into our children components.
   const products = [
@@ -62,10 +72,10 @@ function App() {
         {products.filter(({ price }) => price < 500).map(({ title, price }) => (
           // Here, we want our elements to have a key prop so, we are using the 'Fragment' syntax.
           <Fragment key={title}>
-            <p>
+            <p style={styles.ListTitle}>
               {title} costs ${price}
             </p>
-            <hr style={{ borderColor: "slategray" }} />
+            <hr style={styles.ListDivider} />
           </Fragment>
         ))}
     </div>
