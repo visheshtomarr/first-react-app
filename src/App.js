@@ -15,6 +15,7 @@ function App() {
           "Up to 29 hours video playback"
       ],
       price: 999,
+      stockCount: 10,
   },
     {
       imageSrc: "Images/airpods.png",
@@ -25,6 +26,7 @@ function App() {
           "Up to 6 hours of listening"
       ],
       price: 249,
+      stockCount: 0,
   },
   {
     imageSrc: "Images/apple-watch.png",
@@ -32,9 +34,10 @@ function App() {
     specification: [
         "41mm or 45mm case size",
         "Always-on Retina display",
-        "Up to 18 hours of battery life on normal usage"
+        "Up to 18 hours on normal usage"
     ],
     price: 399,
+    stockCount: 8,
   },
   ]
 

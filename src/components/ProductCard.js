@@ -38,7 +38,26 @@ export function ProductCard(
             <li key={index}>{spec}</li>
           )}
         </ul>
-        <button onClick={() => onPurchase(product)}>Buy (for ${product.price})</button>
+        <Status stockCount={product.stockCount} />
+        {/* if an item's stock count is zero, we do not render 'buy' button for it. */}
+        {product.stockCount > 0 && (
+          <button onClick={() => onPurchase(product)}>
+            Buy (for ${product.price})
+          </button>
+        )}
       </article>
     );
+}
+
+// We will display the stock count of different products using this component.
+function Status({ stockCount }) {
+  const notAvailableTemplate = (
+    <p style={{ fontSize: "14px", color: "lightsalmon" }}>Not available</p>
+  );
+
+  const availableTemplate = (
+    <p style={{ fontSize: "14px", color: "lightgreen" }}>{stockCount} items available</p>
+  );
+
+  return stockCount === 0 ? notAvailableTemplate : availableTemplate ;
 }
