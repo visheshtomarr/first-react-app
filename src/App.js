@@ -1,3 +1,4 @@
+import { Fragment } from 'react';
 import './App.css';
 import { ProductCard } from './components/ProductCard';
 import { ProductList } from './components/ProductList';
@@ -55,13 +56,15 @@ function App() {
       
       {/* If we need to filter the products which costs less than 500, we will use '.filter' method on products. */}
       <h2>Products which costs up to $500</h2>
-      <ul>
         {products.filter(({ price }) => price < 500).map(({ title, price }) => (
-          <li>
-            {title} costs ${price}
-          </li>
+          // Here, we want our elements to have a key prop so, we are using the 'Fragment' syntax.
+          <Fragment key={title}>
+            <p>
+              {title} costs ${price}
+            </p>
+            <hr style={{ borderColor: "slategray" }} />
+          </Fragment>
         ))}
-      </ul>
     </div>
   );
 }
