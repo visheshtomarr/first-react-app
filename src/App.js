@@ -1,5 +1,5 @@
 import { Fragment } from 'react';
-import './App.css';
+import styles from './App.module.css';
 import { ProductCard } from './components/ProductCard';
 import { ProductList } from './components/ProductList';
 
@@ -48,7 +48,7 @@ function App() {
   }
 
   return (
-    <div className="App">
+    <div className={styles.App}>
       <ProductList>
         {/* Using a map to display the 'products' array elements. */}
         {/* Every item in list is required to have a key used for react to uniquely identify a list item.  */}
@@ -62,10 +62,10 @@ function App() {
         {products.filter(({ price }) => price < 500).map(({ title, price }) => (
           // Here, we want our elements to have a key prop so, we are using the 'Fragment' syntax.
           <Fragment key={title}>
-            <p className='ListTitle'>
+            <p className={styles.ListTitle}>
               {title} costs ${price}
             </p>
-            <hr className='ListDivider' />
+            <hr className={styles.ListDivider} />
           </Fragment>
         ))}
     </div>

@@ -1,5 +1,5 @@
 // Styles used in this component.
-import "./ProductCard.css";
+import styles from "./ProductCard.module.css";
 
 // Creating a react component for our application.
 // JSX follows the 'Pascal-case' naming convention.
@@ -18,7 +18,7 @@ export function ProductCard(
     }) {
 
     return (
-      <article className='Container' style={ {background} }>
+      <article className={styles.Container} style={ {background} }>
         <h2>{product.title}</h2>
         <img
           src={product.imageSrc}
@@ -27,7 +27,7 @@ export function ProductCard(
           height={128}
         />
         <p>Specification:</p>
-        <ul className='SpecList'>
+        <ul className={styles.SpecList}>
           {/* It is not recommended to use 'index' as a key prop when we have some elements inside array which 
           can be deleted in the future. But, in our case we won't be deleting any product so here we can use 'index'.*/}
           {product.specification.map((spec, index) => 
@@ -48,11 +48,11 @@ export function ProductCard(
 // We will display the stock count of different products using this component.
 function Status({ stockCount }) {
   const notAvailableTemplate = (
-    <p className='NotAvailableStatus'>Not available</p>
+    <p className={styles.NotAvailableStatus}>Not available</p>
   );
 
   const availableTemplate = (
-    <p className='AvailableStatus'>{stockCount} items available</p>
+    <p className={styles.AvailableStatus}>{stockCount} items available</p>
   );
 
   return stockCount === 0 ? notAvailableTemplate : availableTemplate ;
