@@ -18,15 +18,21 @@ export function ProductCard(
         onPurchase,
     }) {
 
+    // Functions to display specification of an item when user clicks on show/hide.
+    const [showSpecification, setShowSpecification] = useState(false);  
     // Function to reduce the stock count eveytime a user buys an item.
     const [stockCount, setStockCount] = useState(product.stockCount);
+    
     function handleClick() {
-      setStockCount(stockCount - 1);
+      setStockCount((prevStockCount) => prevStockCount - 1);
       onPurchase(product)
     }
 
-    // Functions to display specification of an item when user clicks on show/hide.
-    const [showSpecification, setShowSpecification] = useState(false);
+    function handleBuyTwoItems() {
+      setStockCount((prevStockCount) => prevStockCount - 1);  // noOfItems - 1
+      setStockCount((prevStockCount) => prevStockCount - 1);  // (noOfItems-1) - 1
+      onPurchase(product)
+    }
 
     return (
       <article className={styles.Container} style={ {background} }>
@@ -51,10 +57,12 @@ export function ProductCard(
         <Status stockCount={stockCount} />
         {/* if an item's stock count is zero, we do not render 'buy' button for it. */}
         {stockCount > 0 && (
-          <button onClick={handleClick}>
-            Buy (for ${product.price})
-          </button>
+          <>
+            <p>Price: ${product.price}</p>
+            <button onClick={handleClick}>Buy</button>
+          </>
         )}
+        {stockCount > 1 && <button onClick={handleBuyTwoItems}>Buy 2</button>} 
       </article>
     );
 }
