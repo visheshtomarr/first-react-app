@@ -1,3 +1,4 @@
+import { useState } from "react";
 // Styles used in this component.
 import styles from "./ProductCard.module.css";
 
@@ -17,6 +18,13 @@ export function ProductCard(
         onPurchase,
     }) {
 
+    // Creating a function to reduce the stock count eveytime a user buys an item.
+    const [stockCount, setStockCount] = useState(product.stockCount);
+    function handleClick() {
+      setStockCount(stockCount - 1);
+      onPurchase(product)
+    }
+
     return (
       <article className={styles.Container} style={ {background} }>
         <h2>{product.title}</h2>
@@ -34,10 +42,10 @@ export function ProductCard(
             <li key={index}>{spec}</li>
           )}
         </ul>
-        <Status stockCount={product.stockCount} />
+        <Status stockCount={stockCount} />
         {/* if an item's stock count is zero, we do not render 'buy' button for it. */}
-        {product.stockCount > 0 && (
-          <button onClick={() => onPurchase(product)}>
+        {stockCount > 0 && (
+          <button onClick={handleClick}>
             Buy (for ${product.price})
           </button>
         )}
