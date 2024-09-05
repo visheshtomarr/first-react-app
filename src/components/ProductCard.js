@@ -18,12 +18,15 @@ export function ProductCard(
         onPurchase,
     }) {
 
-    // Creating a function to reduce the stock count eveytime a user buys an item.
+    // Function to reduce the stock count eveytime a user buys an item.
     const [stockCount, setStockCount] = useState(product.stockCount);
     function handleClick() {
       setStockCount(stockCount - 1);
       onPurchase(product)
     }
+
+    // Functions to display specification of an item when user clicks on show/hide.
+    const [showSpecification, setShowSpecification] = useState(false);
 
     return (
       <article className={styles.Container} style={ {background} }>
@@ -34,14 +37,17 @@ export function ProductCard(
           width={128}
           height={128}
         />
-        <p>Specification:</p>
-        <ul className={styles.SpecList}>
+        <p>Specification: {' '}
+          <button onClick={() => setShowSpecification(!showSpecification)}>{showSpecification ? "Hide" : "Show"}</button>
+        </p>
+        {showSpecification && <ul className={styles.SpecList}>
           {/* It is not recommended to use 'index' as a key prop when we have some elements inside array which 
           can be deleted in the future. But, in our case we won't be deleting any product so here we can use 'index'.*/}
-          {product.specification.map((spec, index) => 
+          {product.specification.map((spec, index) => (
             <li key={index}>{spec}</li>
-          )}
+          ))}
         </ul>
+        }
         <Status stockCount={stockCount} />
         {/* if an item's stock count is zero, we do not render 'buy' button for it. */}
         {stockCount > 0 && (
