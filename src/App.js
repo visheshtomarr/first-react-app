@@ -1,7 +1,9 @@
+import { useState } from 'react';
 import { Fragment } from 'react';
 import styles from './App.module.css';
 import { ProductCard } from './components/ProductCard';
 import { ProductList } from './components/ProductList';
+import { ProductFilter } from './components/ProductFilter';
 
 function App() {
   // Creating a 'products' prop which will be passed into our children components.
@@ -39,7 +41,22 @@ function App() {
     price: 399,
     stockCount: 8,
   },
-  ]
+  ];
+
+  // Function to filter products based on price.
+  const [filters, setFilters] = useState({
+    minPrice: 0,
+    maxPrice: 999,
+  });
+
+  // Funtion to handle the filter state.
+  function handleFilter(key, value) {
+    setFilters((prevFilters) => ({
+      // Unpacks the Filters' object.
+      ...prevFilters,
+      [key]: value
+    }))
+  }
 
   // Function to handle click on purchase button.
   // We will pass this event handler as a prop to the children components.
@@ -58,8 +75,10 @@ function App() {
       </ProductList>
       
       {/* If we need to filter the products which costs less than 500, we will use '.filter' method on products. */}
-      <h2>Products which costs up to $500</h2>
-        {products.filter(({ price }) => price < 500).map(({ title, price }) => (
+      <h2>Products filtered by price</h2>
+      <ProductFilter filters={filters} onFilter={handleFilter} />
+        {/* Filter product based on max/min price. */}
+        {products.filter(({ price }) => (price >=  filters.minPrice && price <= filters.maxPrice)).map(({ title, price }) => (
           // Here, we want our elements to have a key prop so, we are using the 'Fragment' syntax.
           <Fragment key={title}>
             <p className={styles.ListTitle}>
