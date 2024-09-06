@@ -4,18 +4,18 @@ export function ProductFilter({ filters, onFilter }) {
         <div>
             Price: $
             <input 
-                defaultValue={filters.minPrice} 
+                defaultValue={filters.price.min} 
                 type="number" 
                 min={0} 
                 max={999} 
-                onChange={(event) => onFilter("minPrice", event.target.value)}
+                onChange={(event) => onFilter("min", event.target.value)}
             />{" "} - $
             <input 
-                defaultValue={filters.maxPrice} 
+                defaultValue={filters.price.max} 
                 type="number" 
                 min={0} 
                 max={999}
-                onChange={(event) => onFilter("maxPrice", event.target.value)}
+                onChange={(event) => onFilter("max", event.target.value)}
             />
         </div>
     );

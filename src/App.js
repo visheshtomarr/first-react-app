@@ -45,17 +45,23 @@ function App() {
 
   // Function to filter products based on price.
   const [filters, setFilters] = useState({
-    minPrice: 0,
-    maxPrice: 999,
+    price: {
+      min: 0,
+      max: 999,
+    },
+    other: "other value"
   });
 
-  // Funtion to handle the filter state.
+  // Funtion to handle the nested filter state.
   function handleFilter(key, value) {
     setFilters((prevFilters) => ({
-      // Unpacks the Filters' object.
+      // Unpacks the filters' object.
       ...prevFilters,
-      [key]: value
-    }))
+      price: {
+        ...prevFilters.price,
+        [key]: value
+      },
+    }));
   }
 
   // Function to handle click on purchase button.
@@ -78,7 +84,7 @@ function App() {
       <h2>Products filtered by price</h2>
       <ProductFilter filters={filters} onFilter={handleFilter} />
         {/* Filter product based on max/min price. */}
-        {products.filter(({ price }) => (price >=  filters.minPrice && price <= filters.maxPrice)).map(({ title, price }) => (
+        {products.filter(({ price }) => (price >=  filters.price.min && price <= filters.price.max)).map(({ title, price }) => (
           // Here, we want our elements to have a key prop so, we are using the 'Fragment' syntax.
           <Fragment key={title}>
             <p className={styles.ListTitle}>
