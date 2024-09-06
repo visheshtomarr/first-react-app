@@ -12,15 +12,17 @@ import styles from "./ProductCard.module.css";
 export function ProductCard(
     // We have destructured our 'Prop' and used a default 'background' prop.
     { 
-        product, 
+        product,
+        isFavourite,
+        onFavourite,
         background="slategray",
         // This is the event handler prop that has been passed to this children component.
         onPurchase,
     }) {
 
-    // Functions to display specification of an item when user clicks on show/hide.
+    // State to display specification of an item when user clicks on show/hide.
     const [showSpecification, setShowSpecification] = useState(false);  
-    // Function to reduce the stock count eveytime a user buys an item.
+    // State to reduce the stock count eveytime a user buys an item.
     const [stockCount, setStockCount] = useState(product.stockCount);
     
     function handleClick() {
@@ -36,6 +38,9 @@ export function ProductCard(
 
     return (
       <article className={styles.Container} style={ {background} }>
+        <button className={styles.Favourite} onClick={() => onFavourite(product.id)}>
+          {isFavourite ? "❤️" : "🤍"}
+        </button>
         <h2>{product.title}</h2>
         <img
           src={product.imageSrc}

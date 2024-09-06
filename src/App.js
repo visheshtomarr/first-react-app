@@ -9,6 +9,7 @@ function App() {
   // Creating a 'products' prop which will be passed into our children components.
   const products = [
     {
+      id: 1,
       imageSrc: "Images/iphone.png",
       title: "Iphone 15 pro",
       specification: [
@@ -20,6 +21,7 @@ function App() {
       stockCount: 10,
   },
     {
+      id: 2,
       imageSrc: "Images/airpods.png",
       title: "Airpods Pro 2",
       specification: [
@@ -31,6 +33,7 @@ function App() {
       stockCount: 0,
   },
   {
+    id: 3,
     imageSrc: "Images/apple-watch.png",
     title: "Apple watch 9",
     specification: [
@@ -43,7 +46,7 @@ function App() {
   },
   ];
 
-  // Function to filter products based on price.
+  // State to filter products based on price.
   const [filters, setFilters] = useState({
     price: {
       min: 0,
@@ -52,7 +55,22 @@ function App() {
     other: "other value"
   });
 
-  // Funtion to handle the nested filter state.
+  // State to set favourites.
+  const [favourites, setFavourites] = useState([]);
+
+  // Function to handle favourite's state.
+  function handleFavourite(productId) {
+    if (favourites.includes(productId)){
+      // This will fetch all the previous favourites and remove the one which has 'productId'.
+      setFavourites((prevFavourites) => prevFavourites.filter(id => id !== productId));
+    }
+    else {
+      // This will fetch all the previous favourites and add the one which has 'productId'. 
+      setFavourites((prevFavourites) => [...prevFavourites, productId]);
+    }
+  }
+
+  // Function to handle the nested filter state.
   function handleFilter(key, value) {
     setFilters((prevFilters) => ({
       // Unpacks the filters' object.
@@ -76,7 +94,12 @@ function App() {
         {/* Using a map to display the 'products' array elements. */}
         {/* Every item in list is required to have a key used for react to uniquely identify a list item.  */}
         {products.map(product => 
-          <ProductCard key={product.title} product={product} onPurchase={handlePurchase} />
+          <ProductCard 
+            key={product.title} 
+            product={product} 
+            isFavourite={favourites.includes(product.id)}
+            onPurchase={handlePurchase}
+            onFavourite={handleFavourite} />
         )}
       </ProductList>
       
