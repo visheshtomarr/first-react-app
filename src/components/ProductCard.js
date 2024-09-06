@@ -21,19 +21,16 @@ export function ProductCard(
     }) {
 
     // State to display specification of an item when user clicks on show/hide.
-    const [showSpecification, setShowSpecification] = useState(false);  
-    // State to reduce the stock count eveytime a user buys an item.
-    const [stockCount, setStockCount] = useState(product.stockCount);
+    const [showSpecification, setShowSpecification] = useState(false);
     
-    function handleClick() {
-      setStockCount((prevStockCount) => prevStockCount - 1);
-      onPurchase(product)
+    // Function to handle purchase of 1 item.
+    function handleBuyOneItem() {      
+      onPurchase(product.id, product.stockCount - 1);
     }
 
+    // Function to handle purchase of 2 items.
     function handleBuyTwoItems() {
-      setStockCount((prevStockCount) => prevStockCount - 1);  // noOfItems - 1
-      setStockCount((prevStockCount) => prevStockCount - 1);  // (noOfItems-1) - 1
-      onPurchase(product)
+      onPurchase(product.id, product.stockCount - 2);
     }
 
     return (
@@ -49,7 +46,9 @@ export function ProductCard(
           height={128}
         />
         <p>Specification: {' '}
-          <button onClick={() => setShowSpecification(!showSpecification)}>{showSpecification ? "Hide" : "Show"}</button>
+          <button onClick={() => setShowSpecification(!showSpecification)}>
+            {showSpecification ? "Hide" : "Show"}
+          </button>
         </p>
         {showSpecification && <ul className={styles.SpecList}>
           {/* It is not recommended to use 'index' as a key prop when we have some elements inside array which 
@@ -59,15 +58,15 @@ export function ProductCard(
           ))}
         </ul>
         }
-        <Status stockCount={stockCount} />
+        <Status stockCount={product.stockCount} />
         {/* if an item's stock count is zero, we do not render 'buy' button for it. */}
-        {stockCount > 0 && (
+        {product.stockCount > 0 && (
           <>
             <p>Price: ${product.price}</p>
-            <button onClick={handleClick}>Buy</button>
+            <button onClick={handleBuyOneItem}>Buy</button>
           </>
         )}
-        {stockCount > 1 && <button onClick={handleBuyTwoItems}>Buy 2</button>} 
+        {product.stockCount > 1 && <button onClick={handleBuyTwoItems}>Buy 2</button>} 
       </article>
     );
 }
